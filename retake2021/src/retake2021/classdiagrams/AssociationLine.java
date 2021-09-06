@@ -55,11 +55,9 @@ public class AssociationLine {
 	 * @post | getStartRole().getClassBox() == startClassBox
 	 * @post | getStartRole().getName().equals(startRoleName)
 	 * @post | getStartRole().getMultiplicity() == startRoleMultiplicity
-	 * @post | getStartRole().getAssociationLine() == this
 	 * @post | getEndRole().getClassBox() == endClassBox
 	 * @post | getEndRole().getName().equals(endRoleName)
 	 * @post | getEndRole().getMultiplicity() == endRoleMultiplicity
-	 * @post | getEndRole().getAssociationLine() == this
 	 * @post | startClassBox.getRoles().equals(LogicalMap.plus(old(startClassBox.getRoles()), startRoleName, getStartRole()))
 	 * @post | endClassBox.getRoles().equals(LogicalMap.plus(old(endClassBox.getRoles()), endRoleName, getEndRole()))
 	 */
