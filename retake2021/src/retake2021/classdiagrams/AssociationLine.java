@@ -13,29 +13,39 @@ public class AssociationLine {
 	/**
 	 * @invar | startRole != null
 	 * @invar | endRole != null
-	 * @invar | startRole.associationLine == this
-	 * @invar | endRole.associationLine == this
+	 */
+	private final Role startRole;
+	private final Role endRole;
+	private boolean isDeleted;
+	
+	/**
+	 * @invar | getStartRoleInternal().getAssociationLineInternal() == this
+	 * @invar | getEndRoleInternal().getAssociationLineInternal() == this
 	 * 
-	 * @peerObject
+	 * @immutable
+	 * @peerObject (package-level)
+	 * @post | result != null
 	 */
-	final Role startRole;
+	Role getStartRoleInternal() { return startRole; }
 	/**
-	 * @peerObject
+	 * @immutable
+	 * @peerObject (package-level)
+	 * @post | result != null
 	 */
-	final Role endRole;
-	boolean isDeleted;
+	Role getEndRoleInternal() { return endRole; }
+	boolean isDeletedInternal() { return isDeleted; }
 	
 	/**
 	 * @peerObject
 	 */
-	public Role getStartRole() { return startRole; }
+	public Role getStartRole() { return getStartRoleInternal(); }
 	
 	/**
 	 * @peerObject
 	 */
-	public Role getEndRole() { return endRole; }
+	public Role getEndRole() { return getEndRoleInternal(); }
 	
-	public boolean isDeleted() { return isDeleted; }
+	public boolean isDeleted() { return isDeletedInternal(); }
 	
 	/**
 	 * @throws IllegalArgumentException | startClassBox == null
@@ -77,9 +87,9 @@ public class AssociationLine {
 		
 		if (startClassBox == endClassBox)
 			throw new IllegalArgumentException("`startClassBox` equals `endClassBox`; this is currently not supported");
- 		if (startClassBox.roles.containsKey(startRoleName))
+ 		if (startClassBox.getRoles().containsKey(startRoleName))
  			throw new IllegalArgumentException("`startClassBox` already has a role whose name equals `startRoleName`");
- 		if (endClassBox.roles.containsKey(endRoleName))
+ 		if (endClassBox.getRoles().containsKey(endRoleName))
  			throw new IllegalArgumentException("`endClassBox` already has a role whose name equals `endRoleName`");
 		
 		startRole = new Role(startClassBox, startRoleName, startRoleMultiplicity, this);
